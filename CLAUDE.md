@@ -39,6 +39,7 @@ description: Use when someone asks to [action] or [action].
 | Skill | Command | Description |
 |-------|---------|-------------|
 | skill-builder | `/skill-builder` | Build, optimize, or audit skills using the Discovery Interview process |
+| tech-update | `/tech-update` | Latest news in AI, tech, and the industry — accepts an optional topic or company name |
 | greet | `/greet` | Greet a user by name |
 
 ## Key Conventions
