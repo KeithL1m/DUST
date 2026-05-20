@@ -21,22 +21,68 @@ Fetches and summarizes the latest news in tech, AI, and the broader industry. Ac
 
 3. Select 5–8 stories that are genuinely noteworthy — prioritize announcements, product releases, funding rounds, regulatory news, and research breakthroughs. Skip opinion pieces and minor updates.
 
-4. Format the output using the template below.
+4. For each selected story, use WebFetch on the article URL to get: a richer description of what happened, any relevant data points or quotes, and the article's main image URL (look for `og:image` in the page metadata or the first prominent `<img>` tag).
+
+5. Format the output using the template below.
 
 ## Output Format
 
-Start with a 1–2 sentence narrative framing the day's tech landscape (the "headline mood" — e.g., "AI infrastructure spending is dominating headlines this week as...").
+```
+---
 
-Then list each story as a bullet:
+# 🗞 Tech Briefing — [Month Day, Year]
 
-**[Story Headline]**
-[1-sentence summary of what happened.] **Why it matters:** [1 sentence on the significance or implication.]
+[2–3 sentence narrative framing the day's tech landscape — the theme or tension running through the stories. Synthesize, don't list.]
 
-Close with a 2–3 sentence narrative takeaway: the thread connecting the stories, or what to watch next.
+---
+
+## [Story Headline — present tense, active voice]
+
+> [1–2 sentence summary: the core fact of what happened, for readers who skim.]
+
+[First deep-dive paragraph: 3–4 sentences covering what happened, who the key players are, and the specific details — numbers, dates, product names, quotes.]
+
+[Second deep-dive paragraph: 3–4 sentences covering context and background — why this is happening now, what led up to it, and how it fits the broader competitive landscape.]
+
+**Why it matters:** [3–4 sentences. Forward-looking analysis: what this changes, who wins or loses, what it signals about where the industry is heading, and what to watch next.]
+
+🔗 [Source Name](article-url)
+
+---
+
+## [Next Story Headline]
+
+...repeat for each story...
+
+---
+
+### 🔍 The Big Picture
+
+[First paragraph: 3 sentences identifying the thread connecting all the stories.]
+
+[Second paragraph: 3 sentences on what the pattern signals about where the industry is heading and what to watch closely in the coming week.]
+
+---
+```
+
+**Summary line rules:**
+- 1–2 sentences max. The core fact only — who did what.
+- No context, no interpretation. That's what the deep-dive paragraphs are for.
+
+**Deep-dive paragraph rules:**
+- Split into two separate paragraphs with a blank line between them — never one dense block.
+- First paragraph: facts, details, data points, quotes from the article.
+- Second paragraph: context, background, competitive landscape.
+- Write clearly enough that someone outside tech can follow along.
+- No editorializing — save interpretation for "Why it matters."
+
+**Why it matters rules:**
+- 3–4 sentences. Focus on implication and forward-looking significance.
+- Answer: What does this change? Who wins or loses? What should someone watch next?
 
 ## Notes
 
 - If `$ARGUMENTS` is a company name with no recent news, say so and offer to broaden the search.
-- Don't fabricate stories. If search results are sparse, return what's available and note the limitation.
+- Don't fabricate stories or data points. If the article fetch fails, use only what the search result provided.
 - Avoid duplicating the same story from multiple sources — pick the best source and move on.
-- Keep the total output scannable — this is a briefing, not a deep dive.
+- Keep headlines in present tense, active voice: "OpenAI Ships GPT-5" not "GPT-5 Was Released."

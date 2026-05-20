@@ -3,7 +3,18 @@
     "allow": [
       "Bash(Get-ChildItem -Path \"d:\\\\KARL\" -Force)",
       "Bash(Select-Object Name, PSIsContainer, Length)",
-      "Bash(Format-Table -AutoSize)"
+      "Bash(Format-Table -AutoSize)",
+      "Skill(tech-update)",
+      "Skill(tech-update:*)",
+      "WebSearch",
+      "WebFetch(domain:techcrunch.com)",
+      "WebFetch(domain:capacityglobal.com)",
+      "WebFetch(domain:fortune.com)",
+      "WebFetch(domain:techstartups.com)",
+      "WebFetch(domain:news.crunchbase.com)",
+      "WebFetch(domain:whatllm.org)",
+      "WebFetch(domain:techwireasia.com)",
+      "WebFetch(domain:www.ghacks.net)"
     ]
   }
 }

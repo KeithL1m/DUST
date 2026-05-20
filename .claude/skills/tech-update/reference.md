@@ -127,25 +127,38 @@ A story is worth including if it meets at least one of these:
 
 ## Output Format Reference
 
-The output combines bullet digest and narrative summary in three layers:
+The output has three structural layers: a dated narrative frame, per-story sections with deep dives, and a closing big-picture paragraph.
 
 ### Layer 1: Narrative Frame (2–3 sentences)
 
-Opens the briefing. Sets the "headline mood" — the theme or tension running through the day's news. Do not just list the stories; synthesize them.
+Opens the briefing under a dated `# 🗞 Tech Briefing` header. Sets the "headline mood" — the theme or tension running through the day's news. Synthesize, don't list.
 
 **Good:**
-> AI infrastructure investment is accelerating faster than model capability improvements this week, with three major cloud providers announcing GPU capacity expansions before shipping any new frontier models.
+> The week of May 20 is defined less by model launches and more by structural bets: who controls the hardware, who controls the platform, and who's trimming to survive the next leg of the race.
 
 **Bad:**
 > Here are today's tech news stories. There are 6 stories today.
 
-### Layer 2: Story Bullets
+### Layer 2: Story Sections
 
-One bullet per story. Format each as:
+Each story gets its own `##` section separated by `---`, with a skimmable summary line, two deep-dive paragraphs, a "Why it matters" block, and a source link.
 
-```
-**[Story Headline — present tense, active voice]**
-[1-sentence factual summary of what happened.] **Why it matters:** [1 sentence on significance, implication, or what to watch next.]
+**Full template:**
+
+```markdown
+---
+
+## [Story Headline — present tense, active voice]
+
+> [1–2 sentence summary of the core fact — for readers who skim.]
+
+[First deep-dive paragraph: 3–4 sentences on the specific facts — what happened, who the key players are, numbers, dates, product names, and any notable quotes.]
+
+[Second deep-dive paragraph: 3–4 sentences on context and background — why this is happening now, what led up to it, how it fits the competitive landscape.]
+
+**Why it matters:** [3–4 sentences on forward-looking implication — what changes, who wins or loses, what to watch.]
+
+🔗 [Source Name](article-url)
 ```
 
 **Headline rules:**
@@ -153,27 +166,44 @@ One bullet per story. Format each as:
 - No clickbait. State the fact.
 - Under 10 words.
 
-**Summary rules:**
-- One sentence only. The who, what, and when.
-- No editorializing in the summary — save that for "Why it matters."
+**Summary line rules:**
+- 1–2 sentences. The core fact only — who did what.
+- No context or interpretation. That belongs in the deep-dive paragraphs.
+
+**Deep-dive paragraph rules:**
+- Always two separate paragraphs with a blank line between — never one dense block.
+- First paragraph: facts, data points, quotes. Second paragraph: context, background, competitive framing.
+- Write clearly enough that someone outside tech can follow. No assumed knowledge.
+- No editorializing — save interpretation for "Why it matters."
 
 **Why it matters rules:**
-- One sentence. Focus on implication, not restatement.
-- Answer: So what? What does this change? What should someone watch next?
+- 3–4 sentences. Forward-looking, not a restatement of the description.
+- Answer: What changes? Who wins or loses? What should someone watch next?
 
-**Example bullet:**
+**Example story section:**
 
+```markdown
+---
+
+## Anthropic Raises $2B Series E at $18B Valuation
+
+> Anthropic closed a $2 billion funding round led by Google, valuing the company at $18 billion.
+
+Anthropic's Series E was announced May 15 and led by Google with participation from Spark Capital and existing investors, bringing total funding to $7.3 billion. The $18 billion post-money valuation is a significant jump from its 2024 raise, and CEO Dario Amodei stated the capital will go primarily toward compute infrastructure, safety research, and scaling Claude's enterprise deployments.
+
+The round comes as Anthropic has been aggressively growing its customer base across financial services, legal, and healthcare — sectors where trust and explainability matter most. It also deepens the company's partnership with Google, which includes Anthropic running workloads on Google Cloud's TPU infrastructure, creating mutual dependency that goes beyond a simple investor relationship.
+
+**Why it matters:** The raise cements Anthropic as the primary alternative to OpenAI for enterprise buyers who want a safety-focused vendor. The continued investor appetite — despite extraordinarily high compute costs — signals the market still believes frontier AI has durable commercial upside. For competitors, this means Anthropic has the runway to match OpenAI on capability for at least another 18–24 months. Watch whether the Claude 4 launch converts this capital into measurable market share.
+
+🔗 [TechCrunch](https://techcrunch.com/example)
 ```
-**Anthropic Raises $2B Series E at $18B Valuation**
-Anthropic closed a $2 billion funding round led by Google, bringing its total raised to $7.3 billion. **Why it matters:** The round cements Anthropic's position as the primary alternative to OpenAI for enterprise AI buyers and signals continued investor appetite for frontier AI despite high compute costs.
-```
 
-### Layer 3: Narrative Takeaway (2–3 sentences)
+### Layer 3: Big Picture (two paragraphs)
 
-Closes the briefing. Identify the thread connecting the stories, or flag what to watch in the coming days/weeks. This is where synthesis goes — not recap.
+Closes the briefing under a `### 🔍 The Big Picture` subheading. Split into two paragraphs: the first identifies the thread connecting all the stories; the second covers what the pattern signals about where the industry is heading and what to watch in the coming week. This is synthesis — not recap.
 
 **Good:**
-> The common thread today is consolidation: major players are acquiring talent, compute, and distribution rather than building from scratch. If this pace continues, the competitive moat in AI will be capital and infrastructure, not model architecture alone. Watch NVIDIA's next earnings call for signals on whether demand is actually outpacing supply.
+> The throughline this week is control — over chips, over platforms, over cost. Meta is betting on compute over headcount. Apple is betting on ecosystem over model ownership. China is betting on domestic silicon over NVIDIA dependency. The industry is no longer just racing to build the best model; it's racing to lock in the infrastructure layer that everything else runs on. Watch Google I/O's hardware announcements this week — if Google ships a new TPU generation alongside Gemini updates, it signals a vertical integration play that would directly challenge NVIDIA's dominance at the data center level.
 
 **Bad:**
 > Those were today's tech updates. Hope you found them useful!
