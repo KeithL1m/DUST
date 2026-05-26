@@ -40,6 +40,7 @@ description: Use when someone asks to [action] or [action].
 |-------|---------|-------------|
 | skill-builder | `/skill-builder` | Build, optimize, or audit skills using the Discovery Interview process |
 | tech-update | `/tech-update` | Latest news in AI, tech, and the industry — accepts an optional topic or company name |
+| day-plan | `/day-plan` | Plan your day/week, manage priorities, and track tasks — saves to `plans/` |
 | greet | `/greet` | Greet a user by name |
 
 ## Key Conventions
