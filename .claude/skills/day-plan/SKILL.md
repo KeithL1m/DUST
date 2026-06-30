@@ -1,7 +1,7 @@
 ---
 name: day-plan
 description: Use when someone asks to plan their day, plan their week, organize tasks, set priorities, do an end-of-day recap, or review their week.
-argument-hint: [week | recap | review | update | add <task>]
+argument-hint: [week | recap | review | update | add <task> | goals]
 allowed-tools: Read, Write, Glob
 ---
 
@@ -9,9 +9,9 @@ For the complete reference on modes, file storage, output format, and customizat
 
 ## What This Skill Does
 
-Helps plan and manage tasks across the week and day. Maintains a persistent weekly plan file and generates focused daily plans from it. Supports priority tiers, time estimates, quick wins, task carryover, and end-of-day/week reviews.
+Helps plan and manage tasks across the week and day. Maintains a persistent weekly plan file and generates focused daily plans from it. Supports priority tiers, time estimates, deadlines, meetings, goal alignment, quick wins, task carryover, and end-of-day/week reviews.
 
-Plans are saved to the `plans/` folder so they persist across sessions.
+Plans are saved to the `plans/` folder and goals to the `goals/` folder so they persist across sessions.
 
 ## Modes
 
@@ -25,6 +25,7 @@ Behavior is driven by `$ARGUMENTS`:
 | `review` | End-of-week review — what shipped, what didn't, what moves on |
 | `update` | Modify the current week plan (add, complete, or remove tasks) |
 | `add <task>` | Quickly add a single task to the week plan |
+| `goals` | Set up or update monthly and quarterly goals |
 
 ---
 
@@ -34,21 +35,26 @@ Run at the start of each week. Use this to set the week's task list and focus.
 
 **Steps:**
 
-1. Check if a current week file exists at `plans/week-YYYY-WW.md`. If so, ask whether to start fresh or carry forward incomplete tasks from last week.
+1. Read `goals/quarterly.md` and `goals/monthly.md` if they exist. Display the current goals briefly so the user can align this week's tasks with them. If no goals files exist, suggest running `/day-plan goals` to set them up first.
 
-2. Ask the user for this week's tasks using AskUserQuestion or conversational prompts. Collect:
+2. Check if a current week file exists at `plans/week-YYYY-WW.md`. If so, ask whether to start fresh or carry forward incomplete tasks from last week.
+
+3. Ask the user for this week's tasks using AskUserQuestion or conversational prompts. Collect:
    - Tasks labeled **PRIORITIZE** — must be completed this week, scheduled first each day
    - Tasks labeled **HIGH** — strong intent to complete this week
    - Tasks labeled **STANDARD** — complete if time allows
    - Tasks labeled **QUICK WIN** — under 15 minutes, used to fill gaps
    - Tasks labeled **RECURRING** — happen every week (e.g., team standup, weekly report)
    - Optional: time estimates per task using `[Xh]` or `[Xm]` notation
+   - Optional: deadlines per task using `[due: YYYY-MM-DD]` notation
 
-3. Ask for one sentence describing this week's overall focus or theme.
+4. Ask for recurring meetings this week — meetings that happen on the same day and time every week (e.g., Monday standup 9:00–9:30 AM). Store these in the Recurring Meetings section of the week plan. One-off meetings are entered during each daily plan.
 
-4. Save the week plan to `plans/week-YYYY-WW.md` using the Weekly Plan template below.
+5. Ask for one sentence describing this week's overall focus or theme.
 
-5. Confirm the plan is saved and offer to generate today's day plan immediately.
+6. Save the week plan to `plans/week-YYYY-WW.md` using the Weekly Plan template below.
+
+7. Confirm the plan is saved and offer to generate today's day plan immediately.
 
 **Weekly Plan template (`plans/week-YYYY-WW.md`):**
 
@@ -59,8 +65,11 @@ Run at the start of each week. Use this to set the week's task list and focus.
 
 ---
 
+## 📅 Recurring Meetings
+- [Meeting name] — [Day] [HH:MM AM – HH:MM AM]
+
 ## 🔴 PRIORITIZE
-- [ ] [task] [time estimate if provided]
+- [ ] [task] [time estimate if provided] [due: YYYY-MM-DD if provided]
 
 ## 🟠 HIGH
 - [ ] [task]
@@ -86,25 +95,37 @@ Generates a focused plan for today pulled from the current week plan.
 
 **Steps:**
 
-1. Read the current week plan from `plans/week-YYYY-WW.md`. If none exists, prompt the user to run `/day-plan week` first.
+1. Read the current week plan from `plans/week-YYYY-WW.md` and goals files from `goals/`. If no week plan exists, prompt the user to run `/day-plan week` first.
 
-2. Check for yesterday's day plan at `plans/YYYY-MM-DD.md`. Extract any tasks marked `[ ]` (incomplete) — these are carryovers.
+2. Check for yesterday's day plan at `plans/YYYY-MM-DD.md`. If there are incomplete `[ ]` tasks, show them all at once and ask the user to decide for each: **keep** (carry to today), **defer** (push to a specific later day this week — ask which day), or **drop**. Apply those decisions before building today's plan, and update the week plan to reflect any deferred or dropped tasks.
 
-3. Build today's plan:
-   - **Morning block:** All PRIORITIZE tasks (incomplete from week plan + carryovers)
+3. Ask for today's one-off meetings — any meetings not already in the week plan's Recurring Meetings section (name, time, duration). These appear in today's plan only and are not saved to the week file.
+
+4. Scan all tasks in the week plan for `[due:]` tags. Flag any tasks due today or within the next 2 days as a ⚠️ deadline warning block at the top of the day plan.
+
+5. Build today's plan, blocking out all meeting times (recurring + one-off) so tasks are not scheduled during meetings:
+   - **Morning block:** All PRIORITIZE tasks (incomplete from week plan + kept carryovers)
    - **Midday block:** HIGH tasks
    - **Afternoon block:** STANDARD tasks
    - **Fill gaps:** QUICK WIN tasks surfaced separately for in-between moments
-   - **Recurring:** Always appear at the top of their relevant time
+   - **Recurring tasks:** Always appear at the top of their relevant time
 
-4. Calculate estimated total time from task estimates. If the total exceeds ~7 hours, flag it and suggest which tasks to defer to tomorrow.
+6. Calculate estimated total time excluding meeting durations. If the total exceeds ~7 hours, flag it and suggest which tasks to defer.
 
-5. Save the day plan to `plans/YYYY-MM-DD.md` and display it.
+7. Save the day plan to `plans/YYYY-MM-DD.md` and display it.
 
 **Daily Plan template (`plans/YYYY-MM-DD.md`):**
 
 ```markdown
 # 📅 Day Plan — [Weekday, Month Day]
+
+⚠️ Deadlines approaching:
+- [task] — due [today / tomorrow / in 2 days]
+(omit this block entirely if no deadlines within 2 days)
+
+## 📅 Meetings
+- [Meeting name] [HH:MM AM – HH:MM AM]
+(omit this section if no meetings today)
 
 ## 🔁 Recurring
 - [ ] [task]
@@ -122,7 +143,7 @@ Generates a focused plan for today pulled from the current week plan.
 - [ ] [task] (~Xm)
 
 ---
-**Estimated total:** Xh Ym
+**Estimated total:** Xh Ym (excluding meetings)
 _Carried over from yesterday: [task list or "none"]_
 ```
 
@@ -198,7 +219,7 @@ Modify the current week plan mid-week.
 
 1. Read `plans/week-YYYY-WW.md` and display the current task list.
 
-2. Ask what the user wants to change: add a task, complete a task, remove a task, change a priority, or add a time estimate.
+2. Ask what the user wants to change: add a task, complete a task, remove a task, change a priority, add or update a time estimate, add or update a deadline, or update the Recurring Meetings section.
 
 3. Apply the changes and save the updated file with a new `Last updated` timestamp.
 
@@ -212,7 +233,7 @@ Add a single task to the week plan without going through the full update flow.
 
 **Steps:**
 
-1. Parse `$ARGUMENTS` — everything after `add` is the task description. Look for a priority keyword (PRIORITIZE, HIGH, STANDARD, QUICK WIN) and time estimate (`[Xh]`/`[Xm]`) in the text.
+1. Parse `$ARGUMENTS` — everything after `add` is the task description. Look for a priority keyword (PRIORITIZE, HIGH, STANDARD, QUICK WIN), time estimate (`[Xh]`/`[Xm]`), and deadline (`[due: YYYY-MM-DD]`) in the text.
 
 2. If no priority keyword is found, default to STANDARD.
 
@@ -222,11 +243,57 @@ Add a single task to the week plan without going through the full update flow.
 
 ---
 
+## Mode 7: Goals (`goals`)
+
+Set up or update monthly and quarterly goals.
+
+**Steps:**
+
+1. Check if `goals/quarterly.md` and `goals/monthly.md` exist. If both are missing, start fresh. If they exist, display the current goals and ask what to update.
+
+2. Ask for quarterly goals (3–5 maximum):
+   - What are you trying to achieve this quarter?
+   - Label each with an ID: Q1, Q2, Q3, etc.
+
+3. Ask for monthly goals for the current month (2–4 maximum):
+   - What are this month's milestones that serve the quarterly goals?
+   - Each monthly goal should reference a quarterly goal ID (e.g., `→ Q1`).
+
+4. If `goals/` does not exist, create it. Save to `goals/quarterly.md` and `goals/monthly.md` using the templates below.
+
+**Quarterly goals template (`goals/quarterly.md`):**
+
+```markdown
+# 🎯 Quarterly Goals — [Q1/Q2/Q3/Q4 YYYY]
+
+- **Q1:** [goal]
+- **Q2:** [goal]
+- **Q3:** [goal]
+
+_Updated: YYYY-MM-DD_
+```
+
+**Monthly goals template (`goals/monthly.md`):**
+
+```markdown
+# 📅 Monthly Goals — [Month YYYY]
+
+- **M1:** [goal] → Q[N]
+- **M2:** [goal] → Q[N]
+- **M3:** [goal] → Q[N]
+
+_Updated: YYYY-MM-DD_
+```
+
+---
+
 ## Notes
 
 - Always read the existing week plan file before generating a day plan — never make up tasks.
-- If `plans/` does not exist, create it before writing the first file.
+- If `plans/` does not exist, create it before writing the first file. If `goals/` does not exist, create it when first running `/day-plan goals`.
 - Never delete a week plan file — completed tasks stay in the file marked `[x]` for the weekly review.
-- If the user's daily total exceeds ~7 hours of estimated tasks, flag the overload and suggest deferring lowest-priority items rather than silently cutting them.
+- If the user's daily total exceeds ~7 hours of estimated tasks (excluding meetings), flag the overload and suggest deferring lowest-priority items rather than silently cutting them.
 - QUICK WIN tasks should not anchor a time block — surface them as a separate list for opportunistic moments between tasks.
 - Recurring tasks always appear regardless of the day, unless the user says a specific one doesn't apply today.
+- Deadline format: `[due: YYYY-MM-DD]`. Flag any task due today or within 2 days as a ⚠️ warning at the top of the daily plan.
+- Meeting format in week plan: `[Meeting name] — [Day] [HH:MM AM – HH:MM AM]`. One-off meetings are entered during daily plan generation and are not saved to the week file.

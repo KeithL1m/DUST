@@ -14,7 +14,10 @@
       "WebFetch(domain:news.crunchbase.com)",
       "WebFetch(domain:whatllm.org)",
       "WebFetch(domain:techwireasia.com)",
-      "WebFetch(domain:www.ghacks.net)"
+      "WebFetch(domain:www.ghacks.net)",
+      "WebFetch(domain:blog.google)",
+      "WebFetch(domain:www.buildfastwithai.com)",
+      "WebFetch(domain:www.bloomberg.com)"
     ]
   }
 }
