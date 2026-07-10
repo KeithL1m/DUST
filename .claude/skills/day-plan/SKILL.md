@@ -39,7 +39,9 @@ Run at the start of each week. Use this to set the week's task list and focus.
 
 2. Check if a current week file exists at `plans/week-YYYY-WW.md`. If so, ask whether to start fresh or carry forward incomplete tasks from last week.
 
-3. Ask the user for this week's tasks using AskUserQuestion or conversational prompts. Collect:
+3. Ask for one sentence describing this week's overall focus or theme.
+
+4. Ask the user for this week's tasks using AskUserQuestion or conversational prompts. Collect:
    - Tasks labeled **PRIORITIZE** — must be completed this week, scheduled first each day
    - Tasks labeled **HIGH** — strong intent to complete this week
    - Tasks labeled **STANDARD** — complete if time allows
@@ -48,9 +50,7 @@ Run at the start of each week. Use this to set the week's task list and focus.
    - Optional: time estimates per task using `[Xh]` or `[Xm]` notation
    - Optional: deadlines per task using `[due: YYYY-MM-DD]` notation
 
-4. Ask for recurring meetings this week — meetings that happen on the same day and time every week (e.g., Monday standup 9:00–9:30 AM). Store these in the Recurring Meetings section of the week plan. One-off meetings are entered during each daily plan.
-
-5. Ask for one sentence describing this week's overall focus or theme.
+5. Ask for recurring meetings this week — meetings that happen on the same day and time every week (e.g., Monday standup 9:00–9:30 AM). Store these in the Recurring Meetings section of the week plan. One-off meetings are entered during each daily plan.
 
 6. Save the week plan to `plans/week-YYYY-WW.md` using the Weekly Plan template below.
 

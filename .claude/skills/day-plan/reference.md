@@ -47,7 +47,7 @@ Five tiers control how tasks are ordered and scheduled.
 - A task with no tier keyword defaults to STANDARD.
 - QUICK WIN tasks are never anchored to a time block — they appear as a separate list for opportunistic moments.
 - RECURRING tasks always appear on the daily plan unless the user says a specific one doesn't apply today.
-- Only PRIORITIZE tasks trigger the overload warning when the day is over-scheduled.
+- All tasks with time estimates count toward the overload check — if the total (excluding meetings) exceeds 7 hours, the skill flags it and suggests deferring the lowest-priority items.
 
 ---
 
