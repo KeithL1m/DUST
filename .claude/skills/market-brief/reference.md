@@ -33,11 +33,17 @@ Complete reference for the market-brief skill. Covers argument usage, search str
 3. **Past week** — Fall back only for a ticker with genuinely no recent activity.
 4. **Always disclose** the date range used when it's wider than 48 hours.
 
+### Getting Prices vs. Getting News
+
+These use different tools and different sourcing rules — don't conflate them:
+
+- **Prices** never come from WebSearch. Use direct WebFetch on two independent quote pages per the "Price Verification" section in SKILL.md (Google Finance + stockanalysis.com, with Yahoo Finance/CNBC as a tiebreaker). WebSearch's AI-summarized snippets pull from multiple cached/stale pages at once and are the least trustworthy source for a number that needs to be exact.
+- **News** (earnings, guidance, M&A, analyst moves, macro) is fine via WebSearch — a summarized snippet of "what happened" degrades much more gracefully than a summarized snippet of "what number is it right now."
+
 ### Constructing Search Queries
 
-For a specific ticker or holding:
+For a specific ticker or holding's news:
 ```
-"$TICKER" stock price today
 "$TICKER" OR "$COMPANY_NAME" earnings OR guidance OR analyst 2026
 ```
 
@@ -47,9 +53,19 @@ For the macro roundup:
 Federal Reserve OR "interest rates" OR CPI OR jobs report 2026
 ```
 
+For prices, skip search entirely — go straight to:
+```
+https://www.google.com/finance/quote/<TICKER>:<EXCHANGE>
+https://stockanalysis.com/stocks/<ticker>/
+```
+
 ### Source Priority
 
-**Tier 1 — Primary sources:**
+**For prices (WebFetch only, see above):**
+1. Google Finance and stockanalysis.com — the two-source default
+2. Yahoo Finance or CNBC — tiebreaker if the two above disagree or either is flagged as delayed/stuck
+
+**For news (Tier 1 — primary sources):**
 - SEC filings (8-K, 10-Q, earnings releases)
 - Company investor relations press releases
 - Federal Reserve / BLS releases for macro data
@@ -63,6 +79,7 @@ Federal Reserve OR "interest rates" OR CPI OR jobs report 2026
 - Aggregator sites that don't cite a primary source
 
 **Avoid:**
+- Using WebSearch (rather than direct WebFetch) for any number that ends up in the Portfolio Snapshot table or a gain/loss figure
 - Pure technical-analysis or price-prediction pieces without a stated catalyst
 - Sources with paywalls you can't fetch — note the gap rather than guessing at content
 - Any single-day move under ~2% with no identifiable news hook
@@ -107,6 +124,8 @@ See SKILL.md for the full templates. Key rules:
 **"Why it matters (for you)":** This differs from tech-update's version — it must tie back to the user's actual position or watch decision, not generic market commentary. Example: "This narrows your unrealized gain from 18% to 11% — still comfortably above your cost basis, but worth watching if the guidance cut persists next quarter." Not: "This is bad news for tech stocks broadly."
 
 **Portfolio Snapshot table:** Always shown first in the Full Brief and Portfolio modes, even if no story sections follow. Always includes the "not a live feed" disclosure directly beneath it.
+
+**Rising/falling indicators:** Every gain/loss and day-change figure gets a colored-dot prefix since plain markdown can't render font color: 🟢 positive, 🔴 negative, ⚪ flat/unchanged (~±0.05% or explicitly reported unchanged). Applies to the Portfolio Snapshot table, the total gain/loss line, Watchlist Highlights bullets, and any price move cited inside a story section.
 
 ---
 
@@ -155,7 +174,7 @@ Like tech-update, `/schedule` can run `/market-brief` on a recurring basis (e.g.
 
 ### Prices seem stale or wrong
 
-Web search results can lag real-time quotes, especially intraday. Always keep the "not a live feed" disclosure visible, and if a price looks clearly wrong (e.g., doesn't match a recent split), say so rather than silently using it.
+Live quote pages can lag real-time prices, especially intraday, and can also fail silently — a page can display a normal-looking timestamp while its own banner admits it's serving delayed data (this has happened with Yahoo Finance). This is exactly what the two-source cross-check in SKILL.md exists to catch: if one source disagrees with a second by more than ~0.5%, don't average them or guess which is right — check for a delayed/outage disclaimer on either page, drop the stuck one, and pull a third source as tiebreaker. Always keep the "not a live feed" + retrieval-time disclosure visible, and if a price still looks clearly wrong after cross-checking (e.g., doesn't match a recent split), say so rather than silently using it.
 
 ### Import misclassifies portfolio vs. watchlist
 

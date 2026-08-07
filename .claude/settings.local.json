@@ -17,7 +17,12 @@
       "WebFetch(domain:www.ghacks.net)",
       "WebFetch(domain:blog.google)",
       "WebFetch(domain:www.buildfastwithai.com)",
-      "WebFetch(domain:www.bloomberg.com)"
+      "WebFetch(domain:www.bloomberg.com)",
+      "WebFetch(domain:www.wealthsimple.com)",
+      "WebFetch(domain:finance.yahoo.com)",
+      "WebFetch(domain:ca.finance.yahoo.com)",
+      "WebFetch(domain:www.google.com)",
+      "WebFetch(domain:stockanalysis.com)"
     ]
   }
 }

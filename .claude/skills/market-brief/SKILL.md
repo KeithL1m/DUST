@@ -14,7 +14,26 @@ Tracks a personal stock portfolio and watchlist, then produces a market brief co
 
 Portfolio and watchlist are saved to the `finance/` folder so they persist across sessions. **`finance/` is gitignored — never commit or push this data.**
 
-⚠️ Price data comes from web search, not a live brokerage or market data feed. Treat all prices and gain/loss figures as approximate and directional, not precise enough to trade on.
+⚠️ Price data comes from live quote pages, cross-checked across two independent sources — not a live brokerage feed. Treat gain/loss figures as accurate to within a few minutes of market movement, not tick-by-tick.
+
+### Price Verification (Two-Source Cross-Check)
+
+A single fetched source can be silently wrong — a page can be mid-outage and serve a stale snapshot with a normal-looking timestamp (this has happened with Yahoo Finance), or different aggregators can disagree by double digits on a volatile stock. Never trust one source, and never use WebSearch's aggregated snippets for a price — they summarize multiple stale/cached pages and are the least reliable option. For every ticker (holdings and watchlist), fetch the price directly with WebFetch from two independent quote pages:
+
+1. **Source A:** `https://www.google.com/finance/quote/<TICKER>:<EXCHANGE>` (e.g., `NASDAQ`, `NYSE`, or `TSE` for Canadian tickers)
+2. **Source B:** `https://stockanalysis.com/stocks/<ticker>/` (lowercase ticker; use `https://stockanalysis.com/quote/tsx/<TICKER>/` for TSX-listed tickers)
+
+Then:
+1. If either page explicitly says its data is delayed, stuck, or experiencing an outage (e.g., a "temporary issues" or "data is currently delayed" banner), discard that source for this ticker and pull a third as a tiebreaker — Yahoo Finance (`finance.yahoo.com/quote/<TICKER>/`) or CNBC (`cnbc.com/quotes/<TICKER>`).
+2. If the two remaining sources agree within ~0.5%, use the one with the more recent explicit timestamp (or their average if timestamps match).
+3. If they disagree by more than ~0.5%, don't silently pick one — surface it in the output (e.g., `⚠️ sources disagree: $X vs $Y`) rather than presenting false precision, and lean toward whichever has the more recent, explicit timestamp.
+4. Note the retrieval time once near the top of the brief (e.g., "Prices as of 2:14 PM EDT") so staleness is visible at a glance without repeating it per row.
+
+This doubles the fetch cost per ticker, but it's the only way to catch a single-source outage before it silently corrupts an entire brief.
+
+### Rising/Falling Indicators
+
+Plain markdown can't render actual font color, so every gain/loss and day-change figure gets a colored-dot prefix instead: 🟢 for positive/rising, 🔴 for negative/falling, ⚪ for flat/unchanged (roughly ±0.05% or explicitly reported as unchanged). Apply this to every dollar and percent figure that represents a move — portfolio gain/loss, day change, and any price move mentioned in a story section or watchlist bullet. Example: `🔴 -$1.96 (-0.16%)` or `🟢 +0.41%`.
 
 ## Modes
 
@@ -40,9 +59,9 @@ The first token of `$ARGUMENTS` selects a mode. If it doesn't match a command ke
 
 1. Read `finance/portfolio.md` and `finance/watchlist.md`. If neither exists, explain that no positions or watchlist entries are set up yet, and offer `add`/`watch`/`import` to get started — don't fabricate a brief with no data.
 
-2. For each portfolio holding, search for current price and any notable news from the past 24–48 hours (earnings, guidance changes, analyst moves, M&A, regulatory action). Compute value (`shares × price`), gain/loss vs. cost basis in dollars and percent, and today's change if available.
+2. For each portfolio holding, get the current price using the two-source cross-check above, and search for any notable news from the past 24–48 hours (earnings, guidance changes, analyst moves, M&A, regulatory action). Compute value (`shares × price`), gain/loss vs. cost basis in dollars and percent, and today's change if available.
 
-3. For each watchlist ticker, search for the same categories of news — lighter treatment than holdings since there's no position at stake, but flag anything that would change whether it's worth buying (approaching target price, major catalyst).
+3. For each watchlist ticker, get the current price the same way (two-source cross-check — watchlist tickers get the same price rigor as holdings, since a wrong price is a wrong price either way), and search for the same categories of news — lighter treatment than holdings on the news side since there's no position at stake, but flag anything that would change whether it's worth buying (approaching target price, major catalyst).
 
 4. Search for major index levels (S&P 500, Nasdaq, Dow) and any macro catalysts from the past 24 hours (Fed statements, CPI/jobs data, major geopolitical events affecting markets).
 
@@ -58,11 +77,11 @@ The first token of `$ARGUMENTS` selects a mode. If it doesn't match a command ke
 ## 💼 Portfolio Snapshot
 | Ticker | Shares | Cost Basis | Price | Value | Gain/Loss | Day Change |
 |--------|--------|------------|-------|-------|-----------|------------|
-| [TICK] | [N]    | $[X.XX]    | $[X.XX] | $[X,XXX] | [+/-]$[X] ([+/-]X.X%) | [+/-]X.X% |
+| [TICK] | [N]    | $[X.XX]    | $[X.XX] | $[X,XXX] | 🟢/🔴 [+/-]$[X] ([+/-]X.X%) | 🟢/🔴/⚪ [+/-]X.X% |
 
-**Total value:** $[X,XXX.XX] | **Total gain/loss:** [+/-]$[X,XXX] ([+/-]X.X%)
+**Total value:** $[X,XXX.XX] | **Total gain/loss:** 🟢/🔴 [+/-]$[X,XXX] ([+/-]X.X%)
 
-⚠️ Prices are approximate, sourced from web search — not a live feed. Confirm before trading.
+⚠️ Prices as of [H:MM AM/PM TZ], cross-checked across two sources — not a live brokerage feed. Confirm before trading.
 
 ---
 
@@ -85,7 +104,7 @@ The first token of `$ARGUMENTS` selects a mode. If it doesn't match a command ke
 ---
 
 ## 👀 Watchlist Highlights
-- **[TICKER]** — [one-line note, e.g. "down 4% this week, now 6% above your $[target] target"]
+- **[TICKER]** — [one-line note with a colored move indicator, e.g. "🔴 down 4% this week, now 6% above your $[target] target"]
 
 ---
 
@@ -98,16 +117,16 @@ The first token of `$ARGUMENTS` selects a mode. If it doesn't match a command ke
 ## Mode 2: Portfolio Only (`portfolio`)
 
 1. Read `finance/portfolio.md`. If it doesn't exist, say so and offer `add` or `import` to create the first holding.
-2. Fetch current prices for each holding only — skip watchlist and macro searches entirely.
-3. Display just the Portfolio Snapshot table and total gain/loss from the template above, plus one line per holding with any same-day news headline if one exists (no full deep-dive sections).
+2. Get current prices for each holding only, using the two-source cross-check above — skip watchlist and macro searches entirely.
+3. Display just the Portfolio Snapshot table and total gain/loss from the template above (with the 🟢/🔴/⚪ indicators and the retrieval-time disclosure), plus one line per holding with any same-day news headline if one exists (no full deep-dive sections).
 
 ---
 
 ## Mode 3: Watchlist Only (`watchlist`)
 
 1. Read `finance/watchlist.md`. If it doesn't exist or is empty, say so and offer `watch <TICKER>` to add the first entry.
-2. Fetch current price and recent news for each watchlist ticker.
-3. Display the 👀 Watchlist Highlights section only, noting current price vs. target price where a target is set.
+2. Get current price for each watchlist ticker using the two-source cross-check above, and search for recent news.
+3. Display the 👀 Watchlist Highlights section only (with 🟢/🔴/⚪ indicators), noting current price vs. target price where a target is set.
 
 ---
 
@@ -214,7 +233,8 @@ _Updated: [YYYY-MM-DD]_
 
 - `finance/` is gitignored at the repo root — never remove that entry, and never suggest committing portfolio or watchlist data.
 - Always read the existing portfolio/watchlist files before reporting on them — never fabricate positions or prices.
-- Price and gain/loss figures are search-derived estimates. Always include the "not a live feed" disclosure in any output that shows a computed price or gain/loss.
+- Prices come from direct WebFetch on two independent quote pages, never from WebSearch's aggregated snippets — see "Price Verification" above. Always include the "not a live feed" + retrieval-time disclosure in any output that shows a computed price or gain/loss.
+- If a source's own page reports itself as delayed/stuck (an outage banner, not just a normal quote-delay disclaimer), treat its price as unusable for that fetch and fall back to a third source — don't silently average a stuck number in with a live one.
 - Never pad a brief with a full story section for a holding that has no notable news — a summary line is enough.
 - If a ticker is ambiguous (e.g., a common word), disambiguate with the exchange or full company name in the search query.
 - Import (Mode 11) never writes without explicit user confirmation of the parsed preview — a misread digit in a screenshot could otherwise silently corrupt cost basis records.
