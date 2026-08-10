@@ -127,6 +127,14 @@ See SKILL.md for the full templates. Key rules:
 
 **Rising/falling indicators:** Every gain/loss and day-change figure gets a colored-dot prefix since plain markdown can't render font color: 🟢 positive, 🔴 negative, ⚪ flat/unchanged (~±0.05% or explicitly reported unchanged). Applies to the Portfolio Snapshot table, the total gain/loss line, Watchlist Highlights bullets, and any price move cited inside a story section.
 
+**🎯 My Take (worked examples):** See "Investment Opinion" in SKILL.md for the full methodology. Good vs. bad calls, illustrated:
+
+- Good — traces to a fact already in the brief: `**FIG** — 🟡 Hold — Today's 8% jump on the BofA Buy reinstatement is a real signal, but it's one session after a long slide; the honest call is "let the bounce prove itself" rather than adding or trimming on one green day.`
+- Good — names concentration risk independent of the stock's own merits: `**NVDA** — 🟡 Hold — Nothing here changes the thesis, but NVDA is already ~60% of your portfolio value; any new money probably belongs elsewhere before adding more here.`
+- Good — admits there's no real signal instead of inventing one: `**AAPL** — 🟡 Hold — No strong signal either way today beyond the routine ex-dividend dip; nothing here to act on.`
+- Bad — sunk-cost reasoning: `**FIG** — 🔴 Trim — it's already down 68%, cut the loss.` (The 68% figure alone isn't forward-looking information; it says nothing about what happens next. If the honest case IS defensive, ground it in something forward-looking instead — e.g. a specific guidance concern or valuation call from a cited source.)
+- Bad — invented precision: `**NVDA** — 🟢 Add — technicals suggest a bounce to $230 is likely.` (No source in this brief said that; don't manufacture a price target or technical call that wasn't actually reported.)
+
 ---
 
 ## Import Behavior Detail
