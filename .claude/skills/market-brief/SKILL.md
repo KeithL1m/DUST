@@ -206,7 +206,7 @@ Triggered when the first argument token doesn't match `portfolio`, `watchlist`, 
 ## Mode 7: Remove Holding (`remove <TICKER>`)
 
 1. Read `finance/portfolio.md`. If the ticker isn't found, say so.
-2. Remove the row entirely (don't just zero it out — unlike day-plan's tasks, there's no history value in keeping a closed position marked in this file).
+2. Remove the row entirely (don't just zero it out — unlike routine-goals' tasks, there's no history value in keeping a closed position marked in this file).
 3. Save and confirm: "Removed [TICKER] from portfolio."
 
 ---
