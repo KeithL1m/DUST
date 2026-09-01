@@ -40,7 +40,7 @@ description: Use when someone asks to [action] or [action].
 |-------|---------|-------------|
 | skill-builder | `/skill-builder` | Build, optimize, or audit skills using the Discovery Interview process |
 | tech-update | `/tech-update` | Latest news in AI, tech, and the industry — accepts an optional topic or company name |
-| routine-goals | `/routine-goals` | Plan your day/week, manage priorities, deadlines, meetings, and goals; track habit streaks and journal daily reflections — saves to `plans/` (tracked) and `goals/`, `habits/`, `journal/` (gitignored) |
+| routine-goals | `/routine-goals` | Plan your day/week, manage priorities, deadlines, meetings, and goals; track habit streaks and journal daily reflections — saves to `plans/`, `goals/`, `habits/`, `journal/` (all gitignored) |
 | market-brief | `/market-brief` | Portfolio/watchlist tracker + market news brief, with screenshot import — saves to `finance/` (gitignored) |
 | greet | `/greet` | Greet a user by name |
 

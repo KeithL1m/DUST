@@ -1,7 +1,8 @@
 # Personal financial data — never commit real holdings/positions
 finance/
 
-# Personal goals, habit streaks, and journal reflections — private, not versioned
+# Personal goals, habit streaks, journal reflections, and daily/weekly plans — private, not versioned
 goals/
 habits/
 journal/
+plans/

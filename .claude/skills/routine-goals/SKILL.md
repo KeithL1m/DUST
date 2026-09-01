@@ -11,7 +11,7 @@ For the complete reference on modes, file storage, output format, and customizat
 
 Helps plan and manage tasks across the week and day, and connects that daily action back to your goals and motivation. Maintains a persistent weekly plan file and generates focused daily plans from it. Supports priority tiers, time estimates, deadlines, meetings, goal alignment, quick wins, task carryover, habit streaks, end-of-day reflection journaling, and end-of-day/week reviews.
 
-Plans are saved to the `plans/` folder. Goals, habits, and journal entries are saved to `goals/`, `habits/`, and `journal/` — all three are gitignored (private, local-only), since they're more personal than a task checklist.
+Plans, goals, habits, and journal entries are saved to `plans/`, `goals/`, `habits/`, and `journal/` — all four are gitignored (private, local-only).
 
 ## Modes
 
@@ -179,7 +179,7 @@ Run at the end of the day to close out and set up tomorrow.
 
 5. Update `plans/week-YYYY-WW.md` with any changes — newly completed tasks marked `[x]`, any additions appended.
 
-6. If `habits/habits.md` exists, ask a single yes/no per habit that was due today (batch them in one question, not one at a time). For each: if yes, increment its streak by 1; if no, reset its streak to 0. Update `Last Check-in` to today's date either way, and save `habits/habits.md`. Note any streak that just hit a milestone (7, 14, 30, 60, 100 days) — this gets called out in the recap display.
+6. If `habits/habits.md` exists, ask a single yes/no per habit that was due today (batch them in one question, not one at a time). For each: if yes, increment its streak by 1. If no: on a **weekday** (Mon–Fri), reset the streak to 0; on a **weekend day** (Sat/Sun), leave the streak unchanged — weekends are a no-penalty grace zone, done if motivated, no break if not. Update `Last Check-in` to today's date either way, and save `habits/habits.md`. Note any streak that just hit a milestone (7, 14, 30, 60, 100 days) — this gets called out in the recap display.
 
 7. Ask two short reflection prompts: "What went well today?" and "What got in the way, if anything?" Both are optional — if the user skips either, write "—" rather than inventing an answer. Also ask for an optional freeform motivation note (a sentence on how they're feeling about their goals, or nothing at all).
 
@@ -383,7 +383,7 @@ _Updated: YYYY-MM-DD_
 
 - Always read the existing week plan file before generating a day plan — never make up tasks.
 - If `plans/` does not exist, create it before writing the first file. If `goals/`, `habits/`, or `journal/` don't exist, create them the first time their respective mode runs.
-- `goals/`, `habits/`, and `journal/` are gitignored — never remove those entries, and never suggest committing their contents. `plans/` is not gitignored.
+- `plans/`, `goals/`, `habits/`, and `journal/` are all gitignored — never remove those entries, and never suggest committing their contents.
 - Never delete a week plan file — completed tasks stay in the file marked `[x]` for the weekly review. Never delete or overwrite a past entry in `journal/YYYY-MM.md` — it's append-only.
 - If the user's daily total exceeds ~7 hours of estimated tasks (excluding meetings), flag the overload and suggest deferring lowest-priority items rather than silently cutting them.
 - QUICK WIN tasks should not anchor a time block — surface them as a separate list for opportunistic moments between tasks.
@@ -391,5 +391,6 @@ _Updated: YYYY-MM-DD_
 - Deadline format: `[due: YYYY-MM-DD]`. Flag any task due today or within 2 days as a ⚠️ warning at the top of the daily plan.
 - Goal tag format: `[goal: M1]` or `[goal: Q1]`, optional on any task. Used to connect today's work back to a goal in the daily plan and weekly review — never required, and never fabricate a connection that isn't tagged.
 - Habit streak logic: a streak only changes during `/routine-goals recap` — if the user skips recap for a day, the streak doesn't silently break; it just isn't updated until the next recap, at which point the user reports what actually happened. Never infer a missed day on your own.
+- Weekend grace: Saturdays and Sundays are a no-penalty zone for every habit, regardless of what's in its `Frequency` column — doing the habit still grows the streak, but skipping it on a weekend never resets one. This applies globally (not per-habit); weekdays keep the strict reset-on-miss rule.
 - Reflection prompts in recap are always optional — if the user has nothing to say, write "—" rather than manufacturing an answer, and never skip logging the entry entirely just because both prompts were empty.
 - Meeting format in week plan: `[Meeting name] — [Day] [HH:MM AM – HH:MM AM]`. One-off meetings are entered during daily plan generation and are not saved to the week file.

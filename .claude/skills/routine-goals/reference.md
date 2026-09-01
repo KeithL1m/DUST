@@ -146,7 +146,7 @@ journal/2026-05.md          → Journal entries for May 2026
 - Goals and habits files are updated in place — overwritten when you run `/routine-goals goals` or `/routine-goals habits`, except a habit's streak/last-check-in fields, which only change during `recap`.
 - Journal files are append-only — a new day's entry is added under the current month's file; past entries are never edited or removed by the skill.
 - If `plans/`, `goals/`, `habits/`, or `journal/` doesn't exist, the skill creates the directory the first time its mode runs.
-- `goals/`, `habits/`, and `journal/` are gitignored at the repo root — this data is personal (goals, streaks, reflections) and never committed. `plans/` is tracked normally.
+- `plans/`, `goals/`, `habits/`, and `journal/` are all gitignored at the repo root — this data is personal (tasks, goals, streaks, reflections) and never committed. Note: two early plan files (`plans/2026-08-26.md` and `plans/week-2026-35.md`) were committed and pushed before this was gitignored — they remain in the repo's git history even though the folder is no longer tracked going forward.
 
 ---
 
@@ -351,8 +351,8 @@ _Updated: YYYY-MM-DD_
 
 **Streak rules:**
 - Starts at 0 with no `Last Check-in` when first created.
-- Incremented by 1 at `recap` when the user confirms the habit was done that day.
-- Reset to 0 at `recap` when the user says it wasn't done.
+- Incremented by 1 at `recap` when the user confirms the habit was done that day — on any day of the week, including weekends.
+- Reset to 0 at `recap` when the user says it wasn't done — but only on a **weekday** (Mon–Fri). On a **weekend day** (Sat/Sun), a "no" leaves the streak unchanged instead of resetting it: weekends are a no-penalty grace zone, do it if motivated, no break if not. This applies to every habit, regardless of whether the weekend is in its `Frequency` column.
 - Never changes outside of `recap` — a day with no recap run simply isn't counted either way, it doesn't silently break the streak.
 - Milestones worth calling out with 🎉 in the recap display: 7, 14, 30, 60, 100 days.
 
