@@ -150,7 +150,7 @@ Each story gets its own `##` section separated by `---`, with a skimmable summar
 
 ## [Story Headline — present tense, active voice]
 
-> [1–2 sentence summary of the core fact — for readers who skim.]
+**[1–2 sentence summary of the core fact — for readers who skim.]**
 
 [First deep-dive paragraph: 3–4 sentences on the specific facts — what happened, who the key players are, numbers, dates, product names, and any notable quotes.]
 
@@ -187,7 +187,7 @@ Each story gets its own `##` section separated by `---`, with a skimmable summar
 
 ## Anthropic Raises $2B Series E at $18B Valuation
 
-> Anthropic closed a $2 billion funding round led by Google, valuing the company at $18 billion.
+**Anthropic closed a $2 billion funding round led by Google, valuing the company at $18 billion.**
 
 Anthropic's Series E was announced May 15 and led by Google with participation from Spark Capital and existing investors, bringing total funding to $7.3 billion. The $18 billion post-money valuation is a significant jump from its 2024 raise, and CEO Dario Amodei stated the capital will go primarily toward compute infrastructure, safety research, and scaling Claude's enterprise deployments.
 

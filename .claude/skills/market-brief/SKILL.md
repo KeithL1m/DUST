@@ -122,7 +122,7 @@ The first token of `$ARGUMENTS` selects a mode. If it doesn't match a command ke
 
 ## [Story headline for a holding or watchlist ticker with notable news]
 
-> [1–2 sentence core fact]
+**[1–2 sentence core fact]**
 
 [Deep-dive paragraph 1: facts, numbers, quotes]
 

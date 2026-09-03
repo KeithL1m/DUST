@@ -38,7 +38,7 @@ Fetches and summarizes the latest news in tech, AI, and the broader industry. Ac
 
 ## [Story Headline — present tense, active voice]
 
-> [1–2 sentence summary: the core fact of what happened, for readers who skim.]
+**[1–2 sentence summary: the core fact of what happened, for readers who skim.]**
 
 [First deep-dive paragraph: 3–4 sentences covering what happened, who the key players are, and the specific details — numbers, dates, product names, quotes.]
 
