@@ -109,9 +109,9 @@ See [reference.md](reference.md) for the full search-query breakdown per tier an
 
 **Deep-dive paragraph rules:**
 - Split into two separate paragraphs with a blank line between them — never one dense block.
-- First paragraph: 3–4 sentences of facts, details, data points, and direct quotes from the article — named officials/institutions, specific numbers, dates, vote counts. Not a vague summary.
-- Second paragraph: 3–4 sentences of context and background — why this is happening now, what led up to it, how it fits the broader political/economic landscape.
-- Every story needs at least 3 concrete data points across the two paragraphs (a figure, a date, a named quote, a vote count, etc.) — a paragraph with no specifics is too thin no matter how many sentences it has. Prioritize hitting this density bar over hitting the top of the sentence range — a tight 3-sentence paragraph packed with specifics beats a padded 4-sentence one.
+- First paragraph: 2–3 sentences of facts, details, data points, and direct quotes from the article — named officials/institutions, specific numbers, dates, vote counts. Not a vague summary.
+- Second paragraph: 2–3 sentences of context and background — why this is happening now, what led up to it, how it fits the broader political/economic landscape.
+- Every story needs at least 2 concrete data points across the two paragraphs (a figure, a date, a named quote, a vote count, etc.) — a paragraph with no specifics is too thin no matter how many sentences it has. Prioritize hitting this density bar over hitting the top of the sentence range — a tight 2-sentence paragraph packed with specifics beats a padded 3-sentence one.
 - Write clearly enough that someone outside politics/economics can follow along.
 - No editorializing — save interpretation for "Why it matters."
 
