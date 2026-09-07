@@ -78,11 +78,9 @@ See [reference.md](reference.md) for the full search-query breakdown per tier an
 
 **[1–2 sentence summary: the core fact of what happened, for readers who skim.]**
 
-[First deep-dive paragraph: 3–4 sentences covering what happened, who the key players are, and the specific details — numbers, dates, names, quotes.]
+[One dense paragraph: 4–5 sentences fusing the key facts (numbers, dates, names, quotes) with just enough context to explain why it's happening now — no separate background paragraph.]
 
-[Second deep-dive paragraph: 3–4 sentences covering context and background — why this is happening now, what led up to it, and how it fits the broader political/economic landscape.]
-
-**Why it matters:** [3–4 sentences. Forward-looking analysis: what this changes, who's affected, what it signals, and what to watch next.]
+**Why it matters:** [1 sentence. The single sharpest forward-looking implication — not a list of everything that could matter.]
 
 🔗 [Source Name](article-url)
 
@@ -108,16 +106,15 @@ See [reference.md](reference.md) for the full search-query breakdown per tier an
 - No context, no interpretation. That's what the deep-dive paragraphs are for.
 
 **Deep-dive paragraph rules:**
-- Split into two separate paragraphs with a blank line between them — never one dense block.
-- First paragraph: 2–3 sentences of facts, details, data points, and direct quotes from the article — named officials/institutions, specific numbers, dates, vote counts. Not a vague summary.
-- Second paragraph: 2–3 sentences of context and background — why this is happening now, what led up to it, how it fits the broader political/economic landscape.
-- Every story needs at least 2 concrete data points across the two paragraphs (a figure, a date, a named quote, a vote count, etc.) — a paragraph with no specifics is too thin no matter how many sentences it has. Prioritize hitting this density bar over hitting the top of the sentence range — a tight 2-sentence paragraph packed with specifics beats a padded 3-sentence one.
+- One paragraph only — do not split fact and context into separate paragraphs. Fuse them: lead with the concrete fact, then compress the "why now / how it fits" context into the same flow rather than a second block.
+- 4–5 sentences, dense with specifics — named officials/institutions, numbers, dates, vote counts, direct quotes. Not a vague summary.
+- Every story needs at least 3 concrete data points in that one paragraph (a figure, a date, a named quote, a vote count, etc.) — the merge into one paragraph must not come at the cost of specifics. A sentence that isn't doing fact-or-context work should be cut, not padding added elsewhere.
 - Write clearly enough that someone outside politics/economics can follow along.
 - No editorializing — save interpretation for "Why it matters."
 
 **Why it matters rules:**
-- 3–4 sentences. Focus on implication and forward-looking significance.
-- Answer: What does this change? Who's affected? What should someone watch next?
+- Exactly 1 sentence. The single sharpest forward-looking implication — what changes, who's affected, or what to watch — pick the one that matters most and cut the rest.
+- Do not try to cover "what changes AND who's affected AND what to watch" in one story — that's a list wearing a sentence's clothing. Pick the one angle that's most load-bearing for this particular story.
 
 **Sourcing rules:**
 - Always cite the source(s) actually used to build the story — same as tech-update, this is how the reader checks reliability.
