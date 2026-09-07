@@ -59,7 +59,7 @@ See [reference.md](reference.md) for the full search-query breakdown per tier an
 
 3. Select 5–8 stories that are genuinely significant — prioritize elections/political transitions, major legislation or policy shifts, central bank decisions, diplomatic developments, conflict developments, and major economic data releases. Skip opinion pieces, routine political commentary, and minor local news without national/international significance.
 
-4. For each selected story, use WebFetch on the article URL for a richer description, relevant data points or quotes, and the article's main image URL (`og:image` meta tag or first prominent `<img>` tag). Political/mainstream news sites block WebFetch (403s, paywalls) more often than tech sites — if the primary source fails, retry with at least one alternate outlet (wire services like Reuters/AP/AFP, or BBC, Al Jazeera, NPR, the relevant national broadcaster, or an official government/institutional source tend to fetch reliably) before falling back to the WebSearch summary alone. A story built entirely from search snippets with no successful WebFetch should be the rare exception, not the default — it's the main reason stories come out thin.
+4. For every selected story, without exception, use WebFetch on the article URL for a richer description, relevant data points or quotes, and the article's main image URL (`og:image` meta tag or first prominent `<img>` tag). This step is mandatory, not optional — do not move on to composing a story from the WebSearch summary alone without first attempting the fetch. Political/mainstream news sites block WebFetch (403s, paywalls) more often than tech sites — if the primary source fails, retry with at least one alternate outlet (wire services like Reuters/AP/AFP, or BBC, Al Jazeera, NPR, the relevant national broadcaster, or an official government/institutional source tend to fetch reliably) before falling back to the WebSearch summary alone. A story built entirely from search snippets with no WebFetch attempt at all should never happen; a story that falls back after a genuine retry failure should be rare, not routine — this isn't just about length, a search-tool summary can flatten or misstate a detail (e.g. describing a resolved decision as still pending) in a way the real article wouldn't.
 
 5. Format the output using the template below.
 
@@ -78,7 +78,9 @@ See [reference.md](reference.md) for the full search-query breakdown per tier an
 
 **[1–2 sentence summary: the core fact of what happened, for readers who skim.]**
 
-[One dense paragraph: 4–5 sentences fusing the key facts (numbers, dates, names, quotes) with just enough context to explain why it's happening now — no separate background paragraph.]
+[First chunk: 2 sentences of the core facts — numbers, dates, names, quotes.]
+
+[Second chunk: 2–3 sentences compressing the "why now / how it fits" context — same paragraph's content, just broken for breathing room, not extra material.]
 
 **Why it matters:** [1 sentence. The single sharpest forward-looking implication — not a list of everything that could matter.]
 
@@ -106,9 +108,10 @@ See [reference.md](reference.md) for the full search-query breakdown per tier an
 - No context, no interpretation. That's what the deep-dive paragraphs are for.
 
 **Deep-dive paragraph rules:**
-- One paragraph only — do not split fact and context into separate paragraphs. Fuse them: lead with the concrete fact, then compress the "why now / how it fits" context into the same flow rather than a second block.
-- 4–5 sentences, dense with specifics — named officials/institutions, numbers, dates, vote counts, direct quotes. Not a vague summary.
-- Every story needs at least 3 concrete data points in that one paragraph (a figure, a date, a named quote, a vote count, etc.) — the merge into one paragraph must not come at the cost of specifics. A sentence that isn't doing fact-or-context work should be cut, not padding added elsewhere.
+- Split into two short chunks with a blank line between them, purely for visual breathing room — this is a readability break, not a return to the old two-paragraph structure. Total content across both chunks stays the same length as a single merged paragraph (4–5 sentences combined, not 4–5 sentences each).
+- First chunk: 2 sentences — the core facts (numbers, dates, names, quotes).
+- Second chunk: 2–3 sentences — the "why now / how it fits" context, compressed, not a full second background paragraph.
+- Every story needs at least 3 concrete data points across the two chunks (a figure, a date, a named quote, a vote count, etc.) — splitting for readability must not come at the cost of specifics, and must not become an excuse to add back the length that was just cut.
 - Write clearly enough that someone outside politics/economics can follow along.
 - No editorializing — save interpretation for "Why it matters."
 

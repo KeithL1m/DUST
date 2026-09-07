@@ -38,7 +38,8 @@ Complete reference for the market-brief skill. Covers argument usage, search str
 These use different tools and different sourcing rules — don't conflate them:
 
 - **Prices** never come from WebSearch. Use direct WebFetch on two independent quote pages per the "Price Verification" section in SKILL.md (Google Finance + stockanalysis.com, with Yahoo Finance/CNBC as a tiebreaker). WebSearch's AI-summarized snippets pull from multiple cached/stale pages at once and are the least trustworthy source for a number that needs to be exact.
-- **News** (earnings, guidance, M&A, analyst moves, macro) is fine via WebSearch — a summarized snippet of "what happened" degrades much more gracefully than a summarized snippet of "what number is it right now."
+- **News for the initial scan and one-line mentions** is fine via WebSearch — a summarized snippet of "what happened" degrades much more gracefully than a summarized snippet of "what number is it right now," and not every quiet ticker needs a full fetch.
+- **News for any ticker getting a full story write-up** requires WebFetch on the actual article, same mandatory standard as prices — see SKILL.md Mode 1 Step 5. A snippet can flatten or misstate a detail (calling a completed deal "pending," blurring a rating change's exact figure) in a way that's fine for a one-line mention but not for a deep-dive paragraph making a specific claim.
 
 ### Constructing Search Queries
 
@@ -179,6 +180,10 @@ Like tech-update, `/schedule` can run `/market-brief` on a recurring basis (e.g.
 ---
 
 ## Troubleshooting
+
+### A story section feels thin or turns out inaccurate on closer reading
+
+This means the mandatory WebFetch for that ticker's story (SKILL.md Mode 1 Step 5) was skipped or not retried, and the deep-dive got built from the WebSearch summary instead of the real article. This is a real, recurring failure mode — search-tool summaries can flatten or misstate a detail (e.g. an analyst rating change's exact figure, or a deal's actual status) in a way that reads plausibly but is wrong. Verify every ticker with a full write-up actually got a successful fetch; if it failed, confirm a retry with an alternate outlet was attempted before the section was written.
 
 ### Prices seem stale or wrong
 

@@ -21,7 +21,7 @@ Fetches and summarizes the latest news in tech, AI, and the broader industry. Ac
 
 3. Select 5–8 stories that are genuinely noteworthy — prioritize announcements, product releases, funding rounds, regulatory news, and research breakthroughs. Skip opinion pieces and minor updates.
 
-4. For each selected story, use WebFetch on the article URL to get: a richer description of what happened, any relevant data points or quotes, and the article's main image URL (look for `og:image` in the page metadata or the first prominent `<img>` tag).
+4. For every selected story, without exception, use WebFetch on the article URL to get: a richer description of what happened, any relevant data points or quotes, and the article's main image URL (look for `og:image` in the page metadata or the first prominent `<img>` tag). This step is mandatory, not optional — do not move on to composing a story from the WebSearch summary alone without first attempting the fetch. If the fetch fails (403, paywall, empty page), retry with at least one alternate outlet covering the same story before falling back to the search snippet. A story built entirely from search snippets with no WebFetch attempt at all should never happen; a story that falls back after a genuine retry failure should be rare, not routine.
 
 5. Format the output using the template below.
 
@@ -40,11 +40,11 @@ Fetches and summarizes the latest news in tech, AI, and the broader industry. Ac
 
 **[1–2 sentence summary: the core fact of what happened, for readers who skim.]**
 
-[First deep-dive paragraph: 3–4 sentences covering what happened, who the key players are, and the specific details — numbers, dates, product names, quotes.]
+[First chunk: 2 sentences of the core facts — numbers, dates, product names, quotes.]
 
-[Second deep-dive paragraph: 3–4 sentences covering context and background — why this is happening now, what led up to it, and how it fits the broader competitive landscape.]
+[Second chunk: 2–3 sentences compressing context and background — why now, how it fits the competitive landscape. Same story, split for breathing room, not extra material.]
 
-**Why it matters:** [3–4 sentences. Forward-looking analysis: what this changes, who wins or loses, what it signals about where the industry is heading, and what to watch next.]
+**Why it matters:** [1 sentence. The single sharpest forward-looking implication — what changes, who wins or loses, or what to watch. Pick the one that matters most.]
 
 🔗 [Source Name](article-url)
 
@@ -70,19 +70,19 @@ Fetches and summarizes the latest news in tech, AI, and the broader industry. Ac
 - No context, no interpretation. That's what the deep-dive paragraphs are for.
 
 **Deep-dive paragraph rules:**
-- Split into two separate paragraphs with a blank line between them — never one dense block.
-- First paragraph: facts, details, data points, quotes from the article.
-- Second paragraph: context, background, competitive landscape.
+- Split into two short chunks with a blank line between them, purely for visual breathing room — not the old full two-paragraph structure. Total content across both chunks is 4–5 sentences combined, not 4–5 sentences each.
+- First chunk: 2 sentences — facts, details, data points, quotes from the article.
+- Second chunk: 2–3 sentences — context and background, compressed, not a full second paragraph.
+- Every story needs at least 3 concrete data points across the two chunks (a figure, a date, a product name, a quote, etc.) — splitting for readability must not come at the cost of specifics, or become an excuse to add length back.
 - Write clearly enough that someone outside tech can follow along.
 - No editorializing — save interpretation for "Why it matters."
 
 **Why it matters rules:**
-- 3–4 sentences. Focus on implication and forward-looking significance.
-- Answer: What does this change? Who wins or loses? What should someone watch next?
+- Exactly 1 sentence. The single sharpest forward-looking implication — pick the one angle (what changes, who wins/loses, or what to watch) that's most load-bearing for this story and cut the rest.
 
 ## Notes
 
 - If `$ARGUMENTS` is a company name with no recent news, say so and offer to broaden the search.
-- Don't fabricate stories or data points. If the article fetch fails, use only what the search result provided.
+- Don't fabricate stories or data points. If the article fetch genuinely fails after a retry with an alternate outlet, use only what the search result provided — but the fetch (and retry) must actually be attempted first, every time, for every story. Skipping straight from search results to prose without trying WebFetch at all is the main way stories come out thin or stale, even when the format itself is short.
 - Avoid duplicating the same story from multiple sources — pick the best source and move on.
 - Keep headlines in present tense, active voice: "OpenAI Ships GPT-5" not "GPT-5 Was Released."

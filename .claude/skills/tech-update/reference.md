@@ -141,7 +141,7 @@ Opens the briefing under a dated `# 🗞 Tech Briefing` header. Sets the "headli
 
 ### Layer 2: Story Sections
 
-Each story gets its own `##` section separated by `---`, with a skimmable summary line, two deep-dive paragraphs, a "Why it matters" block, and a source link.
+Each story gets its own `##` section separated by `---`, with a skimmable summary line, two short chunks (split for readability, not two full paragraphs), a one-sentence "Why it matters," and a source link.
 
 **Full template:**
 
@@ -152,11 +152,11 @@ Each story gets its own `##` section separated by `---`, with a skimmable summar
 
 **[1–2 sentence summary of the core fact — for readers who skim.]**
 
-[First deep-dive paragraph: 3–4 sentences on the specific facts — what happened, who the key players are, numbers, dates, product names, and any notable quotes.]
+[First chunk: 2 sentences on the specific facts — what happened, numbers, dates, product names, notable quotes.]
 
-[Second deep-dive paragraph: 3–4 sentences on context and background — why this is happening now, what led up to it, how it fits the competitive landscape.]
+[Second chunk: 2–3 sentences compressing context and background — why now, how it fits the competitive landscape. Same story, split for breathing room, not extra material.]
 
-**Why it matters:** [3–4 sentences on forward-looking implication — what changes, who wins or loses, what to watch.]
+**Why it matters:** [1 sentence. The single sharpest forward-looking implication.]
 
 🔗 [Source Name](article-url)
 ```
@@ -168,17 +168,17 @@ Each story gets its own `##` section separated by `---`, with a skimmable summar
 
 **Summary line rules:**
 - 1–2 sentences. The core fact only — who did what.
-- No context or interpretation. That belongs in the deep-dive paragraphs.
+- No context or interpretation. That belongs in the chunks below.
 
 **Deep-dive paragraph rules:**
-- Always two separate paragraphs with a blank line between — never one dense block.
-- First paragraph: facts, data points, quotes. Second paragraph: context, background, competitive framing.
+- Two short chunks with a blank line between, purely for visual breathing room — not the old full two-paragraph structure. Combined, they total 4–5 sentences, not 4–5 sentences each.
+- First chunk: facts, data points, quotes. Second chunk: context, background, competitive framing, compressed.
+- At least 3 concrete data points across the two chunks — splitting for readability must never come at the cost of specifics, or become an excuse to add length back.
 - Write clearly enough that someone outside tech can follow. No assumed knowledge.
 - No editorializing — save interpretation for "Why it matters."
 
 **Why it matters rules:**
-- 3–4 sentences. Forward-looking, not a restatement of the description.
-- Answer: What changes? Who wins or loses? What should someone watch next?
+- Exactly 1 sentence. Pick the single most load-bearing angle — what changes, who wins/loses, or what to watch — and cut the rest rather than trying to cover all three.
 
 **Example story section:**
 
@@ -189,11 +189,11 @@ Each story gets its own `##` section separated by `---`, with a skimmable summar
 
 **Anthropic closed a $2 billion funding round led by Google, valuing the company at $18 billion.**
 
-Anthropic's Series E was announced May 15 and led by Google with participation from Spark Capital and existing investors, bringing total funding to $7.3 billion. The $18 billion post-money valuation is a significant jump from its 2024 raise, and CEO Dario Amodei stated the capital will go primarily toward compute infrastructure, safety research, and scaling Claude's enterprise deployments.
+Anthropic's Series E was announced May 15 and led by Google, bringing total funding to $7.3 billion — CEO Dario Amodei said the capital goes primarily toward compute infrastructure and scaling Claude's enterprise deployments.
 
-The round comes as Anthropic has been aggressively growing its customer base across financial services, legal, and healthcare — sectors where trust and explainability matter most. It also deepens the company's partnership with Google, which includes Anthropic running workloads on Google Cloud's TPU infrastructure, creating mutual dependency that goes beyond a simple investor relationship.
+The $18 billion valuation is a sharp jump from 2024 and deepens Anthropic's Google Cloud TPU partnership, coming as it aggressively grows its footprint in trust-sensitive sectors like financial services and healthcare.
 
-**Why it matters:** The raise cements Anthropic as the primary alternative to OpenAI for enterprise buyers who want a safety-focused vendor. The continued investor appetite — despite extraordinarily high compute costs — signals the market still believes frontier AI has durable commercial upside. For competitors, this means Anthropic has the runway to match OpenAI on capability for at least another 18–24 months. Watch whether the Claude 4 launch converts this capital into measurable market share.
+**Why it matters:** The raise gives Anthropic the runway to match OpenAI on capability for at least another 18–24 months, cementing it as the primary safety-focused alternative for enterprise buyers.
 
 🔗 [TechCrunch](https://techcrunch.com/example)
 ```
@@ -247,6 +247,10 @@ Tech-update can feed into other skills. Example: run `/tech-update AI regulation
 2. **Check the topic specificity** — Very niche topics (e.g., a small startup) may have infrequent coverage. Offer to broaden to the parent company or sector.
 3. **Try alternate search terms** — The company may be known by a different name in press coverage.
 4. **Say so explicitly** — Never pad with old or weak stories. Tell the user: "Not much has happened with X in the past week — here's the last notable story from [date]."
+
+### A story feels thin, stale, or turns out inaccurate on closer reading
+
+This means the mandatory WebFetch in SKILL.md Step 4 was skipped or not actually retried, and the story was built from the WebSearch tool's own summary instead of the real article. Search-result summaries can blur or flatten details — for example, describing a resolved regulatory order as still "pending" — in a way that reads plausibly but is wrong. This is a real, recurring failure mode, not a hypothetical: verify by checking whether every selected story actually got a successful WebFetch before treating an output as finished. Every story needs an attempted fetch (with at least one alternate-outlet retry on failure); if you catch yourself moving from search results straight to prose, stop and fetch first.
 
 ### Results are off-topic
 

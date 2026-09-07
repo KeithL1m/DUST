@@ -215,11 +215,11 @@ Re-check the neutrality section above — specifically whether the story sourced
 
 That's intentional — Japan's standing lens has a lower bar than the rest of the second tier by design. If it's producing too much low-value content, tighten the lens's own bar in SKILL.md Mode 1 Step 3 rather than removing it entirely.
 
-### A story feels thin or reads like a summary instead of a briefing
+### A story feels thin, stale, or turns out inaccurate on closer reading
 
-This almost always means the primary WebFetch failed and the story got built from the WebSearch tool's auto-generated snippet instead of the actual article. Mainstream/political outlets (The Hill, Bloomberg, AOL, most wire-service aggregators) 403 non-browser fetches far more often than tech sites do, so this happens more here than in `tech-update`.
+This almost always means WebFetch was never attempted, or the primary WebFetch failed and no retry was made — the story got built from the WebSearch tool's auto-generated snippet instead of the actual article. This is a real, recurring failure mode, not a hypothetical: search-result summaries can blur or flatten a detail in a way that reads plausibly but is wrong (e.g. describing a resolved decision as still pending, or a completed action as still proposed). Mainstream/political outlets (The Hill, Bloomberg, AOL, most wire-service aggregators) 403 non-browser fetches far more often than tech sites do, so failed fetches happen more here than in `tech-update` — but a failed fetch still requires a retry, not a shrug.
 
-Fix: when the primary source fails, don't accept the search-snippet summary as final — retry WebFetch against an alternate outlet covering the same story. Outlets that tend to fetch reliably: Reuters, AP, AFP, BBC, Al Jazeera, NPR, Kyiv Independent, SCMP, and official government/institutional pages (`.gov`, central bank sites, parliament sites). A story is allowed to end up snippet-only occasionally, but if it's happening on most stories in a roundup, that's the signal to keep retrying rather than move on.
+Fix: verify every selected story actually got a successful WebFetch before treating the roundup as finished. When the primary source fails, don't accept the search-snippet summary as final — retry WebFetch against an alternate outlet covering the same story. Outlets that tend to fetch reliably: Reuters, AP, AFP, BBC, Al Jazeera, NPR, Kyiv Independent, SCMP, and official government/institutional pages (`.gov`, central bank sites, parliament sites). A story is allowed to end up snippet-only occasionally after a genuine retry failure, but never because the fetch was skipped outright, and never routinely across most stories in a roundup.
 
 ### Skill triggers when it shouldn't
 
