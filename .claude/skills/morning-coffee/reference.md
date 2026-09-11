@@ -88,15 +88,17 @@ Run separate searches per bucket rather than one broad query — this avoids one
 
 ### Source Priority
 
+Search and fetch Tier 1/2 first, every time — they're the default, not just a preference when convenient. Tier 3 exists for background/context only, never as the primary or sole basis for a story's core facts or for any named quote.
+
 **Tier 1 — Primary sources:**
 - Government/official statements, central bank releases, court/tribunal rulings
 - Official statistics agencies for economic data
 
 **Tier 2 — Established journalism:**
-- Reuters, AP, BBC, Financial Times, The Economist
+- Reuters, AP, AFP, BBC, Al Jazeera, NPR, Financial Times, The Economist
 - Bloomberg (economics/markets angle)
 
-**Tier 3 — Secondary/aggregator (context only):**
+**Tier 3 — Secondary/aggregator (context only, never the sole source for a story):**
 - Regional outlets not independently verified
 - Analysis/explainer pieces without a fresh news hook
 
@@ -104,6 +106,8 @@ Run separate searches per bucket rather than one broad query — this avoids one
 - Opinion columns, op-eds, punditry
 - Sources with an evident partisan slant presented without acknowledging it
 - Stories older than a week unless they resurfaced with new context
+
+**If Tier 1/2 sources don't cover an angle of the story** (e.g., "analyst reaction" to a technical policy move), that's a signal the angle may not have a verifiable public source yet — drop that angle or use unattributed framing rather than reaching for a Tier 3 source to fill the gap with the same confidence as a wire-service report. This is the exact failure mode behind fabricated attributions: a real name that sounds plausible for the topic gets a quote invented for it because no real quote could be found. See "A quote or attribution turns out to be fabricated" in Troubleshooting.
 
 ---
 
@@ -220,6 +224,12 @@ That's intentional — Japan's standing lens has a lower bar than the rest of th
 This almost always means WebFetch was never attempted, or the primary WebFetch failed and no retry was made — the story got built from the WebSearch tool's auto-generated snippet instead of the actual article. This is a real, recurring failure mode, not a hypothetical: search-result summaries can blur or flatten a detail in a way that reads plausibly but is wrong (e.g. describing a resolved decision as still pending, or a completed action as still proposed). Mainstream/political outlets (The Hill, Bloomberg, AOL, most wire-service aggregators) 403 non-browser fetches far more often than tech sites do, so failed fetches happen more here than in `tech-update` — but a failed fetch still requires a retry, not a shrug.
 
 Fix: verify every selected story actually got a successful WebFetch before treating the roundup as finished. When the primary source fails, don't accept the search-snippet summary as final — retry WebFetch against an alternate outlet covering the same story. Outlets that tend to fetch reliably: Reuters, AP, AFP, BBC, Al Jazeera, NPR, Kyiv Independent, SCMP, and official government/institutional pages (`.gov`, central bank sites, parliament sites). A story is allowed to end up snippet-only occasionally after a genuine retry failure, but never because the fetch was skipped outright, and never routinely across most stories in a roundup.
+
+### A quote or attribution turns out to be fabricated
+
+This is a more serious variant of the thin-story problem above: instead of under-reporting (a snippet-built story), the skill invented a specific name-plus-quote combination that reads as authoritative but doesn't trace to any real article. It tends to happen on technical or lower-coverage topics (bond-market mechanics, a niche regulatory move, a smaller country's domestic policy) where Tier 1/2 sources are thin — rather than dropping the "analyst reaction" angle or using unattributed framing, a plausible-sounding real name gets grafted onto an invented quote because the topic makes that name/title combination sound credible.
+
+This is checkable: search the exact quote text, and search the named person's name plus the outlet. A real quote used in a real story will surface the source article (or at least corroborating coverage). If it doesn't turn up anywhere, treat that as confirmed fabrication, not just "couldn't verify" — the fix per SKILL.md's sourcing rules is to never attribute a quote to a named person unless it came from a successfully fetched article, and to prefer Tier 1/2 sources (major wire services and broadcasters) over reaching into Tier 3 to fill a gap. If a story's "analyst reaction" or "market reaction" angle has no real Tier 1/2 coverage, the right move is to drop that angle or say "analysts noted..." without a name — not invent one.
 
 ### Skill triggers when it shouldn't
 

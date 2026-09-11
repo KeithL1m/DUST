@@ -112,7 +112,7 @@ See [reference.md](reference.md) for the full search-query breakdown per tier an
 - First chunk: 2 sentences — the core facts (numbers, dates, names, quotes).
 - Second chunk: 2–3 sentences — the "why now / how it fits" context, compressed, not a full second background paragraph.
 - Every story needs at least 3 concrete data points across the two chunks (a figure, a date, a named quote, a vote count, etc.) — splitting for readability must not come at the cost of specifics, and must not become an excuse to add back the length that was just cut.
-- Write clearly enough that someone outside politics/economics can follow along.
+- Write clearly enough that someone outside politics/economics can follow along — define or plainly restate any technical or jargon term the first time it appears (e.g., don't write "the long end" or "liquidity support buybacks" without a one-clause plain-language explanation of what that means). This applies everywhere in the skill, but especially to the central-banks/economic-data bucket, where source material tends to be written in trading-desk or technical register — translate it when composing the story, don't just compress it as-is.
 - No editorializing — save interpretation for "Why it matters."
 
 **Why it matters rules:**
@@ -122,7 +122,8 @@ See [reference.md](reference.md) for the full search-query breakdown per tier an
 **Sourcing rules:**
 - Always cite the source(s) actually used to build the story — same as tech-update, this is how the reader checks reliability.
 - If more than one outlet was fetched to build a story (common here, since the neutrality rules below often require a second source for the other side's framing), list all of them: `🔗 [Source A](url-a), [Source B](url-b)`.
-- Prefer named, identifiable outlets — wire services, established mainstream press, official/government sources — over aggregators, per the source-priority tiers in reference.md.
+- Major wire services and broadcasters — Reuters, AP, AFP, BBC, Al Jazeera, NPR, the relevant national broadcaster — are the default source, not just a preference. Search and fetch these first. Only reach for a smaller, less-established, or aggregator outlet when none of the major names have covered the story and a specific fact genuinely isn't available elsewhere — and when that happens, it's worth being conservative about how much weight the story leans on that single lesser source.
+- Never attribute a quote to a named person unless that exact quote was pulled from a successfully fetched article. If no clean, verifiable quote exists for an angle of the story, either use unattributed framing ("analysts noted...", "the bank's statement said...") or drop that angle entirely. Inventing a plausible-sounding name-plus-quote combination is fabrication, not a shortcut — even when the named person is real (e.g., a real trader or official who was never actually quoted on this). If you can't point to the exact fetched article a quote came from, don't use it.
 
 ---
 
@@ -187,6 +188,6 @@ _Updated: [YYYY-MM-DD]_
 - Major powers (US, China, Russia, UK, EU) get coverage every single run regardless of how quiet the news is that day — if genuinely nothing happened, a single summary line is fine, but don't skip the tier entirely.
 - Second tier, resource powers, and followed items only get a story if something clears the notability bar (see reference.md) — don't force weak stories in just because a country is on the list.
 - Japan's economy/visa/travel-policy lens is a standing exception to the notability bar for that specific topic area — a moderately significant visa-policy change is worth including even if it wouldn't otherwise clear the bar.
-- Never fabricate a story or a data point. If a WebFetch fails, use only what the search result itself provided.
+- Never fabricate a story, a data point, or a quote — this includes attributing a real quote to the wrong person, or inventing a quote and attaching it to a real person's real name and title because they sound plausible for the topic (e.g., a real trader at a real bank who was never actually quoted saying this). A named quote is only valid if it came from a successfully fetched article; otherwise use unattributed framing or drop it. If a WebFetch fails, use only what the search result itself provided — and if the search result itself doesn't clearly support a claim, don't launder that uncertainty into confident-sounding prose.
 - Avoid duplicating the same event across multiple sources — pick the most authoritative source and move on.
 - Keep headlines in present tense, active voice: "Bank of Canada Holds Rates Steady," not "Rates Were Held Steady by the Bank of Canada."
