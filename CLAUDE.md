@@ -43,6 +43,7 @@ description: Use when someone asks to [action] or [action].
 | routine-goals | `/routine-goals` | Plan your day/week, manage priorities, deadlines, meetings, and goals; track habit streaks and journal daily reflections — saves to `plans/`, `goals/`, `habits/`, `journal/` (all gitignored) |
 | market-brief | `/market-brief` | Portfolio/watchlist tracker + market news brief, with screenshot import — saves to `finance/` (gitignored) |
 | morning-coffee | `/morning-coffee` | World news briefing — politics, economies, geopolitics; tiered country coverage + a personal follow list — saves to `world/` |
+| yt-ideas | `/yt-ideas` | Anime YouTube video ideas from current buzz + channel/competitor research; `develop <idea>` drafts a hook + outline — saves to `content/` (gitignored) |
 | greet | `/greet` | Greet a user by name |
 
 ## Key Conventions
