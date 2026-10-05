@@ -71,6 +71,11 @@ https://stockanalysis.com/stocks/<ticker>/
 - Company investor relations press releases
 - Federal Reserve / BLS releases for macro data
 
+**For Smart Money Research specifically:**
+- SEC Form 4 filings (insider trading) and 13F filings (institutional holders) are the primary source — sites like SEC EDGAR, StockTitan, or SecForm4 that cite the actual filing are reliable; always check whether a sale is explicitly marked as made under a Rule 10b5-1 plan before treating it as a signal.
+- A named investor's own account (a direct X/Twitter post, an SEC filing, a letter to shareholders) is the most reliable source for "what they actually said/did." CNBC, TheStreet, Barchart, and Yahoo Finance coverage of a specific named investor's comments is Tier 2 and generally reliable when it quotes them directly.
+- Aggregator sites that only vaguely reference "a famous investor" without naming them, or that present a quote with no clear date, aren't enough to include — skip rather than launder vague attribution into something that reads as specific.
+
 **Tier 2 — Established financial journalism:**
 - Reuters, Bloomberg, WSJ, Financial Times
 - CNBC, Yahoo Finance for earnings/price coverage
@@ -135,6 +140,15 @@ See SKILL.md for the full templates. Key rules:
 - Good — admits there's no real signal instead of inventing one: `**AAPL** — 🟡 Hold — No strong signal either way today beyond the routine ex-dividend dip; nothing here to act on.`
 - Bad — sunk-cost reasoning: `**FIG** — 🔴 Trim — it's already down 68%, cut the loss.` (The 68% figure alone isn't forward-looking information; it says nothing about what happens next. If the honest case IS defensive, ground it in something forward-looking instead — e.g. a specific guidance concern or valuation call from a cited source.)
 - Bad — invented precision: `**NVDA** — 🟢 Add — technicals suggest a bounce to $230 is likely.` (No source in this brief said that; don't manufacture a price target or technical call that wasn't actually reported.)
+
+**`=> Smart money:` (worked examples):** See "Smart Money Research" in SKILL.md for the full methodology. Good vs. bad lines, illustrated:
+
+- Good — flags a genuine split verdict instead of picking a side: `**=> Smart money:** Split verdict — Michael Burry is short NVDA, calling AI chip valuations "a 1960s speculative bubble," while Stanley Druckenmiller still won't buy back in after selling too early in 2024.`
+- Good — discounts routine insider selling explicitly rather than treating it as a red flag: `**=> Smart money:** Ray Dalio trimmed 35% of Bridgewater's stake last quarter, but Berkshire still anchors it at 22% of its own portfolio. Insider activity is routine scheduled selling (a pre-set 10b5-1 plan) — no fresh signal.`
+- Good — omits the line entirely rather than forcing filler: a quiet ticker with no named-investor activity, no notable 13F flow, and no insider activity beyond routine sales simply gets no `=> Smart money:` line at all.
+- Bad — vague, unattributed sentiment: `**=> Smart money:** Smart money seems bullish on this one.` (No named person, no date, no source — this is exactly the kind of laundered vagueness the rule exists to prevent.)
+- Bad — treating routine 10b5-1 selling as bearish: `**=> Smart money:** Insiders are dumping shares, which is a bad sign.` (If the sales are on a pre-scheduled plan, say so and don't frame it as a signal — most insider selling is routine.)
+- Bad — stale 13F data presented as current: `**=> Smart money:** Buffett just bought a huge stake in this.` (If the filing is from last quarter, say "as of [quarter]" — 13Fs are never real-time, and implying otherwise overstates how current the information is.)
 
 ---
 

@@ -37,7 +37,7 @@ Plain markdown can't render actual font color, so every gain/loss and day-change
 
 ### Investment Opinion ("🎯 My Take")
 
-Every brief that shows priced positions — Full Brief, Portfolio Only, Watchlist Only, and Focused Topic — includes a short, explicitly-labeled opinion per name: 🟢 **Add** / 🟡 **Hold** / 🔴 **Trim** for holdings, or 🟢 **Buy** / 🟡 **Wait** / 🔴 **Pass** for watchlist names. This is opinion, not fact — treat it with the same rigor as the rest of the brief, but never dress it up as more certain than it is.
+Every brief that shows priced positions — Full Brief, Portfolio Only, Watchlist Only, and Focused Topic — includes a short, explicitly-labeled opinion per name: 🟢 **Add** / 🟡 **Hold** / 🔴 **Trim** for holdings, or 🟢 **Buy** / 🟡 **Wait** / 🔴 **Pass** for watchlist names. This is opinion, not fact — treat it with the same rigor as the rest of the brief, but never dress it up as more certain than it is. Each My Take line may also get a second, optional line directly beneath it — **`=> Smart money:`** — covering what real named investors and major holders are actually doing; see "Smart Money Research" below for the separate methodology and sourcing rules for that line.
 
 **Two required inputs, from two separate searches — don't rely on one to surface the other:**
 1. **Market news** (from the news search already done in Mode 1 steps 2–3): momentum and its actual cause, upcoming catalysts, M&A/regulatory events, explicit valuation commentary from a source.
@@ -63,6 +63,30 @@ Pull out: the consensus rating (e.g., "34 analysts rate it Buy"), the average 12
 **Format:** `**TICKER** — 🟢/🟡/🔴 [Add/Hold/Trim or Buy/Wait/Pass] — [1–2 sentence reasoning, citing the specific signal from this brief].`
 
 **Required disclaimer**, shown once per brief directly above the "My Take" section, verbatim or close to it: *"Synthesized opinion from the news, analyst research, and price action above — not financial advice, and it doesn't know your full financial picture, risk tolerance, or tax situation. Weigh it as one input, not a directive."*
+
+### Smart Money Research (`=> Smart money:`)
+
+A second, optional line appended directly beneath each ticker's own 🎯 My Take line — same bullet, no blank line in between — covering what real, named investors and major holders are actually doing. This is distinct from the Analyst Research Search above: that's institutional *analyst-firm* consensus (JPMorgan, Wells Fargo, etc.); this is well-known individual investors, major disclosed shareholders, and the company's own insiders.
+
+Run two dedicated searches, separate from the news and analyst searches, for every holding (always) and every watchlist name getting a My Take line:
+```
+"$TICKER" (Warren Buffett OR Bill Ackman OR Michael Burry OR Cathie Wood OR Stanley Druckenmiller OR Jim Cramer OR Dan Ives) 2026
+"$TICKER" 13F institutional holders OR insider trading Form 4 2026
+```
+
+Pull out up to three things, **each only when genuinely found — never force all three, and never force the line itself:**
+
+1. **Named investor stance** — a real, dated, attributed move or quote from a well-known investor/trader (a buy, sell, short, or direct quote). Must trace to an actual search result describing that specific person's specific action on this specific ticker — never attribute a quote or position to a real person unless it's genuinely reported. If multiple named investors disagree with each other (one shorting while another builds a position), call it a **split verdict** rather than picking a side — the disagreement itself is informative.
+2. **Major institutional holders / 13F flows** — the largest disclosed holders, and any notably large new position or exit this quarter. Always a snapshot, never real-time — 13F filings are disclosed up to 45 days after quarter-end, so state the filing quarter rather than implying it's current.
+3. **Insider trading (Form 4)** — company executives/directors buying or selling their own stock. **Explicitly discount routine, pre-scheduled Rule 10b5-1 plan sales** — the vast majority of insider activity is scheduled months in advance and doesn't reflect a view on the stock, so label it "routine" and don't present it as a signal. Only a genuine open-market purchase, an unusually large sale outside a plan, or a clear cluster of selling counts as a real signal worth reporting.
+
+**If nothing substantive turns up** in either search for a given ticker, omit the Smart Money line entirely for that ticker — unlike the main My Take line, this one does not get a "nothing found" filler. It's additive color, not a required disclosure.
+
+**Format**, appended directly below the ticker's existing My Take line:
+```
+**TICKER** — 🟢/🟡/🔴 [Add/Hold/Trim or Buy/Wait/Pass] — [existing reasoning].
+**=> Smart money:** [1–2 sentence synthesis of whichever signals above were actually found]
+```
 
 ## Modes
 
@@ -96,7 +120,7 @@ The first token of `$ARGUMENTS` selects a mode. If it doesn't match a command ke
 
 5. Only give a full story write-up (deep-dive treatment) to holdings or watchlist tickers with genuinely notable news — a stock with no news beyond routine price movement gets a single summary line, not a forced story section. Never pad with weak stories to fill space. For every ticker that does get a full write-up, use WebFetch on the actual article URL before composing its deep-dive paragraphs — this is mandatory, not optional, the same as the price cross-check. A WebSearch summary alone is fine for the initial news scan and for one-line mentions, but never as the sole basis for a full story section: search-tool summaries can flatten or misstate a detail (e.g. calling a completed deal "pending") in a way the real article wouldn't. If the fetch fails, retry with at least one alternate outlet (Reuters, AP, Bloomberg, CNBC, the company's own investor-relations press release) before falling back to the search snippet, and treat that fallback as the rare exception, not routine.
 
-6. Run the Analyst Research Search for every holding, and for any watchlist name that will get a My Take line, then form the 🎯 My Take opinion for each — see "Investment Opinion" above for methodology, the two-input requirement, and the required disclaimer.
+6. Run the Analyst Research Search and the Smart Money Research for every holding, and for any watchlist name that will get a My Take line, then form the 🎯 My Take opinion (plus the optional `=> Smart money:` line where something was found) for each — see "Investment Opinion" and "Smart Money Research" above.
 
 7. Compose the brief using the template below and display it.
 
@@ -144,9 +168,11 @@ _Synthesized opinion from the news, analyst research, and price action above —
 
 **Holdings:**
 - **[TICK]** — 🟢/🟡/🔴 [Add/Hold/Trim] — [1–2 sentence reasoning tied to a specific signal above]
+  **=> Smart money:** [1–2 sentence synthesis of named-investor/13F/insider signal — omit this line entirely if nothing substantive was found]
 
 **Watchlist:** _(only names with a real signal — skip quiet ones)_
 - **[TICK]** — 🟢/🟡/🔴 [Buy/Wait/Pass] — [1–2 sentence reasoning]
+  **=> Smart money:** [same as above — omit if nothing found]
 
 ---
 
@@ -161,7 +187,7 @@ _Synthesized opinion from the news, analyst research, and price action above —
 1. Read `finance/portfolio.md`. If it doesn't exist, say so and offer `add` or `import` to create the first holding.
 2. Get current prices for each holding only, using the two-source cross-check above — skip watchlist and macro searches entirely.
 3. Display just the Portfolio Snapshot table and total gain/loss from the template above (with the 🟢/🔴/⚪ indicators and the retrieval-time disclosure), plus one line per holding with any same-day news headline if one exists (no full deep-dive sections).
-4. Run the Analyst Research Search for each holding, then add a 🎯 My Take section (Holdings only — no watchlist to opine on in this mode) with the required disclaimer, per "Investment Opinion" above.
+4. Run the Analyst Research Search and the Smart Money Research for each holding, then add a 🎯 My Take section (Holdings only — no watchlist to opine on in this mode) with the required disclaimer, per "Investment Opinion" and "Smart Money Research" above.
 
 ---
 
@@ -170,7 +196,7 @@ _Synthesized opinion from the news, analyst research, and price action above —
 1. Read `finance/watchlist.md`. If it doesn't exist or is empty, say so and offer `watch <TICKER>` to add the first entry.
 2. Get current price for each watchlist ticker using the two-source cross-check above, and search for recent news.
 3. Display the 👀 Watchlist Highlights section only (with 🟢/🔴/⚪ indicators), noting current price vs. target price where a target is set.
-4. Run the Analyst Research Search for each watchlist name, then add a 🎯 My Take section (Watchlist only) with the required disclaimer — only for names with a real signal from either step 2 or step 4, per "Investment Opinion" above.
+4. Run the Analyst Research Search and the Smart Money Research for each watchlist name, then add a 🎯 My Take section (Watchlist only) with the required disclaimer — only for names with a real signal from either step 2 or step 4, per "Investment Opinion" and "Smart Money Research" above.
 
 ---
 
@@ -190,7 +216,7 @@ Triggered when the first argument token doesn't match `portfolio`, `watchlist`, 
 2. Check whether it appears in `finance/portfolio.md` or `finance/watchlist.md` — if so, note your position/watch status at the top of the brief.
 3. Search for news on that topic from the past 24–48 hours, falling back to the past week if thin.
 4. Produce 2–4 story sections using the same format as the Full Brief, plus a short "Why it matters (for you)" tie-back if it's a held or watched ticker.
-5. If it's a held or watched ticker, run the Analyst Research Search and close with a single 🎯 My Take line (with the required disclaimer) — skip this entirely if it's neither, since there's no position or watch decision to opine on.
+5. If it's a held or watched ticker, run the Analyst Research Search and the Smart Money Research and close with a single 🎯 My Take line (plus the optional `=> Smart money:` line, and the required disclaimer) — skip this entirely if it's neither, since there's no position or watch decision to opine on.
 
 ---
 
@@ -285,3 +311,6 @@ _Updated: [YYYY-MM-DD]_
 - Import (Mode 11) never writes without explicit user confirmation of the parsed preview — a misread digit in a screenshot could otherwise silently corrupt cost basis records.
 - 🎯 My Take opinions must trace to a specific fact already in the brief (a cited move, catalyst, analyst call, or explicit valuation comment) — never fabricate a rationale to fill the line, and never omit the disclaimer. If a holding has no real signal that session, say so and default to Hold rather than inventing one.
 - The Analyst Research Search is mandatory for every holding, not optional or "only if it comes up" — run it even on quiet days, since "no analyst has moved on this in weeks" is itself informative context for the My Take call.
+- The Smart Money Research (the `=> Smart money:` line) is also run every time for every holding and every watchlist name getting a My Take line — but unlike the main My Take line, the output line itself is only shown when something real was actually found. Never attribute a quote, buy, sell, or short to a named investor unless a search result genuinely describes that specific person's action on that specific ticker.
+- Routine, pre-scheduled Rule 10b5-1 insider sales are the vast majority of all insider trading activity and do not indicate a view on the stock — always label them "routine" and never present them as a bearish signal. Only an open-market purchase, an unusually large sale outside a plan, or a clear selling cluster counts as a real Smart Money signal.
+- 13F institutional-holder data is always a last-quarter snapshot (filed up to 45 days after quarter-end) — state the filing quarter explicitly rather than implying it's current, the same way the price disclosure states its retrieval time.
